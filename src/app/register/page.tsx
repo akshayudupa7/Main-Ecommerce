@@ -5,6 +5,8 @@ import { registrationFormControls } from '@/utils';
 import { Raleway} from 'next/font/google'
 import InputComp from '@/component/Form/inputComp';
 import SelectComp from "@/component/Form/selectComp"
+import {newRegister} from "@/services/user"
+import toast, { Toaster } from 'react-hot-toast';
 const Ral=Raleway({
     weight:'400'
     ,subsets:['latin']
@@ -25,9 +27,24 @@ const initialFormData: FormData = {
   role: "customer",
 };
 
+
 const Page: React.FC = () => {
   const [formData, setFormData] = useState<FormData>(initialFormData);
-
+  const onSubmit=async()=>{
+    try{
+      const data = await newRegister(formData);
+      console.log(data,"hh")
+      if(data.success){
+        toast.success(data.message)
+      }
+      setFormData(initialFormData)
+      console.log(formData)
+    }catch(error){
+       console.log(error)
+    }
+  
+  }
+ 
   return (
     <div className={Ral.className}>
       <Box sx={{width:"100%",display:"flex",alignItems:"center",flexDirection:"column",backgroundColor:"black"}}>
@@ -66,7 +83,7 @@ const Page: React.FC = () => {
           ) : null
         )}
 
-        <button style={{width:"180px",height:"40px",outline:"none",border:"none",color:"#fff",fontWeight:"bold",marginTop:"30px",background: `linear-gradient(to right, rgb(248, 187, 90) 0%, rgb(246, 215, 165) 25%, rgb(250, 222, 176) 45%, rgb(248, 187, 90) 100%)`}}>Sign Up</button>
+        <button style={{width:"180px",height:"40px",outline:"none",border:"none",color:"#fff",fontWeight:"bold",marginTop:"30px",background: `linear-gradient(to right, rgb(248, 187, 90) 0%, rgb(246, 215, 165) 25%, rgb(250, 222, 176) 45%, rgb(248, 187, 90) 100%)`}} onClick={onSubmit}>Sign Up</button>
         </Box>
       </Box>
     </div>

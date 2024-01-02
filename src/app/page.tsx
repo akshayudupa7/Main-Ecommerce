@@ -12,7 +12,7 @@ const Ral=Raleway({
 export default function Page() {
   return (
     <div className={Ral.className} style={{width:"100%"}}>
-      <div className={styles.backgroundContainer}>Hello World</div>
+      <div className={styles.backgroundContainer}></div>
       <Gadget/>
       <Section/>
     </div>

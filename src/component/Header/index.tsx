@@ -1,18 +1,15 @@
-import React from 'react'
+"use client";
+import React, { useContext } from 'react'
 import {Box, Stack, Typography } from "@mui/material"
 import Link from 'next/link'
 import { adminNavOptions ,navOptions} from '@/utils'
-
-const isAuthUser=true
-const isAdmin=false
-  
-
-const user={
-    role:'admin'
-}
+import { GlobalContext } from '@/context'
+import Cookies from 'js-cookie'
+import { usePathname, useRouter } from 'next/navigation'
 
 
-function Nav(){
+
+function Nav({ isAdmin }: { isAdmin: boolean }){
     return(
           <Box>
             <Stack>
@@ -21,14 +18,14 @@ function Nav(){
                         isAdmin?(adminNavOptions.map((item,i)=>(
                               <Box key={i}>
                                 <li key={item.id}>
-                                     {item.label}
+                                     <Link href={item.path}>{item.label}</Link>
                                 </li>
                             </Box>
                         ))):(
                             navOptions.map((item,i)=>(
                                 <Box key={i}>
                                    <li key={item.id}>
-                                         {item.label}
+                                   <Link href={item.path}>{item.label}</Link>
                                    </li>
                                     
                                 </Box>
@@ -45,6 +42,26 @@ function Nav(){
 }
 export default function Index() {
 
+    const {user,setUser,authuser,setAuthUser}=useContext(GlobalContext) || {}
+    const onLogout=()=>{
+        console.log('sss')
+        if(setAuthUser){
+            setAuthUser(false)
+        }
+        if(setUser){
+            setUser(null)
+        }
+        Cookies.remove('token')
+        localStorage.clear()
+    }
+    const pathName=usePathname()
+    const isAdmin=pathName.includes('admin-view')
+    console.log(isAdmin,'ll')
+  const router=useRouter()
+  const users={
+    role:'admin'
+}
+
   return (
     <div>
      <Box>
@@ -58,7 +75,7 @@ export default function Index() {
          <Stack direction="row">
             <Box>
                 {
-                    !isAdmin && isAuthUser?(
+                    !isAdmin && authuser?(
                        <Box>
                         <Typography><Link href="">Account</Link></Typography>
                         <Typography><Link href="">Cart</Link></Typography>
@@ -68,17 +85,17 @@ export default function Index() {
                 }
              </Box> 
              <Box>
-                <Nav/>
+                <Nav isAdmin={isAdmin}/>
              </Box>
              <Box>
                 {
-                    user?.role==='admin'?
-                    isAdmin?<button>Client View</button>:<button>Admin View</button>:null
+                 
+                 users && users?.role === 'admin'?(isAdmin?<button  onClick={()=>router.push('/')}>Client View</button>:<button onClick={()=>router.push('/admin-view')}>Admin View</button>):null
                 }
              </Box>
              <Box>
                 {
-                    isAuthUser?<Link href="">Logout</Link>:<Link href="">Login</Link>
+                    authuser?<button onClick={onLogout}>Logout</button>:<button  onClick={() => router.push("/login")}>Login</button>
                 }
              </Box>
          </Stack>

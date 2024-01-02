@@ -1,35 +1,59 @@
-'use client'
-import React, { createContext, useState , ReactNode } from "react";
+"use client";
+import React, { createContext, useState, ReactNode, Dispatch, SetStateAction, useEffect } from "react";
+import Cookies from "js-cookie";
 
-// Set the initial context value to an object or the type you expect
+interface User {
+  id: string;
+  name: string;
+  password: string;
+  role: string;
+}
+
+interface Current {
+  _id:string;
+  name: string;
+  price: number;
+  description: string;
+  category: string;
+  deliveryInfo: string;
+  onSale: string;
+  imageUrl: string;
+  priceDrop: number;
+
+}
 interface GlobalStateContextProps {
-  state: {
-    // Define your state properties here
-    // For example:
-    counter: number;
-    user: any; // Adjust the type as needed
-  };
-  setState: React.Dispatch<React.SetStateAction<GlobalStateContextProps["state"]>>;
+  authuser: boolean;
+  setAuthUser: Dispatch<SetStateAction<boolean>>;
+  user: User | null;
+  setUser: Dispatch<SetStateAction<User | null>>;
+  currentUpdated:Current | null; 
+  setCurrentUpdated: Dispatch<SetStateAction<Current | null>>;
 }
 
 export const GlobalContext = createContext<GlobalStateContextProps | null>(null);
 
 interface GlobalStateProps {
-    children: ReactNode;
-  }
+  children: ReactNode;
+}
 
-export default function GlobalState({ children }:GlobalStateProps ) {
-  const initialState = {
+export default function GlobalState({ children }: GlobalStateProps) {
+  const [authuser, setAuthUser] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [currentUpdated, setCurrentUpdated] = useState<Current | null>(null);
 
-    counter: 0,
-    user: null,
-  };
-
-  const [state, setState] = useState(initialState);
+  useEffect(() => {
+    console.log(Cookies.get('token'));
+    if (Cookies.get('token') !== undefined) {
+      setAuthUser(true);
+      const userData: string | null = localStorage.getItem('user');
+      setUser(userData !== null ? JSON.parse(userData) : null);
+    } else {
+      setAuthUser(false);
+    }
+  }, []);
 
   return (
-    <GlobalContext.Provider value={{ state, setState }}>
-    
+    <GlobalContext.Provider value={{ authuser, setAuthUser, user, setUser, currentUpdated, setCurrentUpdated }}>
       {children}
     </GlobalContext.Provider>
   );

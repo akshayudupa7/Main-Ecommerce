@@ -6,8 +6,8 @@ import Image from 'next/image'
 
 export default function Index() {
   return (
-    <div>
-        <Typography variant="h3">Smart Living for you</Typography>
+    <div style={{marginTop:"50px",marginBottom:"50px"}}>
+        <Typography variant="h4" sx={{textAlign:'center',marginBottom:"50px"}}>Smart Living for you</Typography>
      <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={4}>

@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import React, { ChangeEvent } from 'react';
 
 
@@ -15,8 +16,8 @@ interface Option {
 
 const SelectComp: React.FC<SelectCompProps> =({onChange,label,value,options=[]})=> {
   return (
-    <div style={{marginTop:"40px"}}>
-
+    <div style={{marginTop:"20px"}}>
+        <Typography sx={{color:"#fff",marginBottom:2}}>{label}</Typography>
         <select
         value={value}
         onChange={onChange}
@@ -27,6 +28,7 @@ const SelectComp: React.FC<SelectCompProps> =({onChange,label,value,options=[]})
             <option 
               id={optionItem.id}
               value={optionItem.id}
+              key={optionItem.id}
               style={{width:"100%",height:"140px"}}
             >
               {optionItem.label}
