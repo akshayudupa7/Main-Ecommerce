@@ -6,7 +6,7 @@ import { Raleway} from 'next/font/google'
 import InputComp from '@/component/Form/inputComp';
 import SelectComp from "@/component/Form/selectComp"
 import {newRegister} from "@/services/user"
-import toast, { Toaster } from 'react-hot-toast';
+
 const Ral=Raleway({
     weight:'400'
     ,subsets:['latin']
@@ -35,7 +35,7 @@ const Page: React.FC = () => {
       const data = await newRegister(formData);
       console.log(data,"hh")
       if(data.success){
-        toast.success(data.message)
+      
       }
       setFormData(initialFormData)
       console.log(formData)

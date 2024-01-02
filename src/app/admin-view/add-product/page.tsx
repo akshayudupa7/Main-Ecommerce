@@ -15,7 +15,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { addProduct, updatetProduct } from "@/services/product";
-import toast from 'react-hot-toast';
+
 import { GlobalContext } from "@/context";
 import { useRouter } from "next/navigation";
 
@@ -119,11 +119,11 @@ const Page: React.FC = () => {
     try {
       const data = contextValue?.currentUpdated!==null?await updatetProduct(formData):await addProduct(formData);
       if (data.success) {
-        toast.success(data.message);
+  
         contextValue?.setCurrentUpdated(null)
         router.push('/admin-view/manage-product')
       }
-      toast.success(data.message);
+   
     } catch (error) {
       console.log(error);
     }

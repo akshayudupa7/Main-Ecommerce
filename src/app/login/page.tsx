@@ -6,7 +6,7 @@ import { Raleway } from "next/font/google";
 import InputComp from "@/component/Form/inputComp";
 import SelectComp from "@/component/Form/selectComp";
 import { newLogin } from "@/services/user";
-import toast, { Toaster } from "react-hot-toast";
+
 import { useRouter } from "next/navigation";
 import { GlobalContext } from "@/context";
 import Cookies from "js-cookie";
@@ -38,7 +38,7 @@ const Page: React.FC = () => {
     try {
       const data = await newLogin(formData);
       if (data.success) {
-        toast.success(data.message);
+    
        if(setAuthUser){
         setAuthUser(true)
        }
