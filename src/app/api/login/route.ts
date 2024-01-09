@@ -1,5 +1,5 @@
 import ConnectToDb from "@/database";
-import User from "@/models";
+import User from "@/models/user";
 import { compare } from "bcryptjs";
 import Joi from "joi";
 import mongoose from "mongoose";

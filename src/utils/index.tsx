@@ -7,22 +7,22 @@ export const navOptions = [
     {
       id: "listing",
       label: "All Products",
-      path: "/listing/all-products",
+      path: "/product/listing/all-products",
     },
     {
       id: "listingtv",
-      label: "tv",
-      path: "/listing/tv",
+      label: "TV",
+      path: "/product/listing/tv",
     },
     {
       id: "listingmobile",
-      label: "mobile",
-      path: "/listing/mobile",
+      label: "AC",
+      path: "/product/listing/ac",
     },
     {
       id: "listinglaptop",
-      label: "laptop",
-      path: "/listing/laptop",
+      label: "Laptop",
+      path: "/product/listing/laptop",
     },
   ];
   
@@ -30,7 +30,7 @@ export const navOptions = [
     {
       id: "adminListing",
       label: "Manage All Products",
-      path: "/admin-view/all-products",
+      path: "/admin-view/manage-product",
     },
     {
       id: "adminNewProduct",
@@ -132,8 +132,8 @@ export const navOptions = [
           label: "TV",
         },
         {
-          id: "Mobile",
-          label: "Mobile",
+          id: "AC",
+          label: "AC",
         },
         {
           id: "Laptop",
@@ -187,4 +187,43 @@ export const navOptions = [
 
 
   export const firebaseStroageURL ="gs://nextjs-2023-4b451.appspot.com"
+
+
+  export const addNewAddressFormControls = [
+    {
+      id: "fullName",
+      type: "input",
+      placeholder: "Enter your full name",
+      label: "Full Name",
+      componentType: "input",
+    },
+    {
+      id: "address",
+      type: "input",
+      placeholder: "Enter your full address",
+      label: "Address",
+      componentType: "input",
+    },
+    {
+      id: "city",
+      type: "input",
+      placeholder: "Enter your city",
+      label: "City",
+      componentType: "input",
+    },
+    {
+      id: "country",
+      type: "input",
+      placeholder: "Enter your country",
+      label: "Country",
+      componentType: "input",
+    },
+    {
+      id: "postalCode",
+      type: "input",
+      placeholder: "Enter your postal code",
+      label: "Postal Code",
+      componentType: "input",
+    },
+  ];
   

@@ -1,3 +1,4 @@
+import Cookies from "js-cookie"
 export const addProduct=async(formData:any)=>{
     console.log(formData,"bb")
     try{
@@ -5,7 +6,7 @@ export const addProduct=async(formData:any)=>{
         method:"POST",
         headers:{
             "content-type":"application/json",
-
+            Authorization: `Bearer ${Cookies.get("token")}`,
         },
         body:JSON.stringify(formData)
 
@@ -39,7 +40,7 @@ export const updatetProduct=async(formData:any)=>{
         method:"PUT",
         headers:{
             "content-type":"application/json",
-
+            Authorization: `Bearer ${Cookies.get("token")}`,
         },
         body:JSON.stringify(formData)
 
@@ -55,7 +56,11 @@ export const deletetProduct=async(id:any)=>{
 
     try{
       const res=await fetch(`http://localhost:3000/api/admin/delete_product?id=${id}`,{
-        method:"DELETE"
+        method:"DELETE",
+        headers:{
+            "content-type":"application/json",
+            Authorization: `Bearer ${Cookies.get("token")}`,
+        },
       })
       const finaldata=await res.json()
       return finaldata
@@ -64,7 +69,7 @@ export const deletetProduct=async(id:any)=>{
     }
 }
 
-export const productByCategory=async(id:any)=>{
+export const productByCategory=async(id:string)=>{
 
     try{
       const res=await fetch(`http://localhost:3000/api/admin/product-by-category?id=${id}`,{
@@ -76,3 +81,23 @@ export const productByCategory=async(id:any)=>{
         console.log(error)
     }
 }
+
+
+
+export const productById = async (id:number) => {
+    try {
+      const res = await fetch(
+        `http://localhost:3000/api/admin/product-by-id?id=${id}`,
+        {
+          method: "GET",
+          cache: "no-store",
+        }
+      );
+  
+      const data = await res.json();
+  
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
+  };

@@ -1,4 +1,5 @@
 import connectToDB from "@/database";
+import AuthUser from "@/middleware";
 
 import Product from "@/models/product";
 import Joi from "joi";
@@ -15,12 +16,17 @@ const AddNewProductSchema = Joi.object({
   imageUrl: Joi.string().required(),
 });
 
+
+
 export async function POST(req: Request) {
   try {
     await connectToDB();
+     const isAuthUser=await AuthUser(req)
 
-    const user = "admin";
-    if (user === "admin") {
+     const user="admin"
+     console.log(isAuthUser,'oo')
+    
+    if (typeof isAuthUser === 'object' && isAuthUser !== null && 'role' in isAuthUser && isAuthUser.role === 'admin') {
       const extractData = await req.json();
 
       const {
@@ -45,7 +51,6 @@ export async function POST(req: Request) {
         priceDrop,
       });
 
-      console.log(error, "vv");
       if (error) {
         return NextResponse.json({
           success: false,

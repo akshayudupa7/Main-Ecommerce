@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import Joi from "joi";
 import ConnectToDb from "@/database";
 import { NextResponse } from "next/server";
-import User from "@/models";
+import User from "@/models/user";
 import { hash } from "bcryptjs";
 
 const schema = Joi.object({

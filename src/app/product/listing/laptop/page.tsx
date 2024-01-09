@@ -23,7 +23,7 @@ interface Product {
   
     const getProducts = async () => {
       try {
-        const getAdminProduct: any = await productByCategory('laptop');
+        const getAdminProduct: any = await productByCategory('Laptop');
         setValue(getAdminProduct && getAdminProduct.message);
       } catch (error) {
         console.error(error);

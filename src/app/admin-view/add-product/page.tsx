@@ -118,6 +118,7 @@ const Page: React.FC = () => {
     console.log(formData);
     try {
       const data = contextValue?.currentUpdated!==null?await updatetProduct(formData):await addProduct(formData);
+    
       if (data.success) {
   
         contextValue?.setCurrentUpdated(null)

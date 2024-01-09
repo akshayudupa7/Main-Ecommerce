@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
 
-      <body className={Ral.className}>
+      <body className={Ral.className} style={{margin:0,padding:0}}>
         <GlobalState>
           <Header/>
         {children}

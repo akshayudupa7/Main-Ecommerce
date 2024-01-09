@@ -1,16 +1,17 @@
-"use client";
+'use client';
 import React, { createContext, useState, ReactNode, Dispatch, SetStateAction, useEffect } from "react";
 import Cookies from "js-cookie";
 
-interface User {
+export interface User {
   id: string;
   name: string;
   password: string;
+  email:string;
   role: string;
 }
 
-interface Current {
-  _id:string;
+export interface Current {
+  _id: string;
   name: string;
   price: number;
   description: string;
@@ -19,15 +20,28 @@ interface Current {
   onSale: string;
   imageUrl: string;
   priceDrop: number;
-
 }
-interface GlobalStateContextProps {
+
+export interface CheckformData {
+  shipping: any; // Adjust the type based on your actual data structure
+  paymentMethod: string;
+  totalPrice: string;
+  isPaid: boolean;
+  paidAt: Date;
+  isProcessing: boolean;
+}
+
+export interface GlobalStateContextProps {
   authuser: boolean;
   setAuthUser: Dispatch<SetStateAction<boolean>>;
   user: User | null;
   setUser: Dispatch<SetStateAction<User | null>>;
-  currentUpdated:Current | null; 
+  currentUpdated: Current | null;
   setCurrentUpdated: Dispatch<SetStateAction<Current | null>>;
+  cartItem: any[]; // Include the cartItem property
+  setCartItem: Dispatch<SetStateAction<any[]>>;
+  checkform: CheckformData; // Include the checkform property
+  setCheckform: Dispatch<SetStateAction<CheckformData>>;
 }
 
 export const GlobalContext = createContext<GlobalStateContextProps | null>(null);
@@ -36,10 +50,21 @@ interface GlobalStateProps {
   children: ReactNode;
 }
 
+export const initialCheckformData: CheckformData = {
+  shipping: {},
+  paymentMethod: '',
+  totalPrice: '',
+  isPaid: false,
+  paidAt: new Date(),
+  isProcessing: true,
+};
+
 export default function GlobalState({ children }: GlobalStateProps) {
   const [authuser, setAuthUser] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
   const [currentUpdated, setCurrentUpdated] = useState<Current | null>(null);
+  const [cartItem, setCartItem] = useState<any[]>([]); // Adjust the type
+  const [checkform, setCheckform] = useState<CheckformData>(initialCheckformData);
 
   useEffect(() => {
     console.log(Cookies.get('token'));
@@ -53,7 +78,7 @@ export default function GlobalState({ children }: GlobalStateProps) {
   }, []);
 
   return (
-    <GlobalContext.Provider value={{ authuser, setAuthUser, user, setUser, currentUpdated, setCurrentUpdated }}>
+    <GlobalContext.Provider value={{ authuser, setAuthUser, user, setUser, currentUpdated, setCurrentUpdated, cartItem, setCartItem, checkform, setCheckform }}>
       {children}
     </GlobalContext.Provider>
   );
