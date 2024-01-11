@@ -6,7 +6,7 @@ import { Raleway } from "next/font/google";
 import InputComp from "@/component/Form/inputComp";
 import SelectComp from "@/component/Form/selectComp";
 import { newLogin } from "@/services/user";
-
+import { ToastContainer, toast } from 'react-toastify';
 import { useRouter } from "next/navigation";
 import { GlobalContext } from "@/context";
 import Cookies from "js-cookie";
@@ -38,7 +38,7 @@ const Page: React.FC = () => {
     try {
       const data = await newLogin(formData);
       if (data.success) {
-    
+        toast.success(data.message)
        if(setAuthUser){
         setAuthUser(true)
        }
@@ -55,7 +55,9 @@ const Page: React.FC = () => {
       console.log(error);
     }
   };
- 
+ const notify=async()=>[
+    toast.success("hello")
+ ]
   useEffect(() => {
     if (authuser) router.push("/");
   }, [authuser]);
@@ -135,6 +137,7 @@ const Page: React.FC = () => {
           >
             Register
           </button>
+          <button onClick={notify}>hhh</button>
         </Box>
       </Box>
     </div>

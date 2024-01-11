@@ -3,7 +3,8 @@ import type { Metadata } from 'next'
 import { Raleway} from 'next/font/google'
 import Header from "@/component/Header"
 import Footer from "@/component/Footer"
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Ral = Raleway({   weight:'400' ,subsets:['latin']})
 
@@ -25,9 +26,8 @@ export default function RootLayout({
           <Header/>
         {children}
         <Footer/>
- 
         </GlobalState>
-
+        <ToastContainer />
         </body>
     </html>
   )
