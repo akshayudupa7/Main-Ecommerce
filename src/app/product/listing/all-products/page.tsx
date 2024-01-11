@@ -2,8 +2,8 @@
 import React, { useEffect,useState } from 'react'
 import CommonList from "@/component/CommonListing"
 import { getProduct } from '@/services/product'
-
-
+import { SearchProd } from '@/services/search';
+import { Box } from '@mui/material';
 
 interface Product {
   
@@ -28,12 +28,31 @@ interface Product {
         console.error(error);
       }
     };
+    const [search,setSearch]=useState("")
+
+    useEffect(()=>{
+       getSearch()
+    },[search])
+    const getSearch=async()=>{
+      const data=await SearchProd(search)
+      console.log(data)
+       
+    }
   
-    console.log(value, 'jjjj');
+ 
   
     return (
       <div style={{ backgroundColor: '#000' }}>
-        {value && <CommonList data={value} />}
+        <Box sx={{width:"100%"}}>
+          <Box sx={{width:"30%",margin:"auto"}}>
+       
+          </Box>
+     
+      </Box>
+      <Box  sx={{marginTop:"40px"}}>
+      {value && <CommonList data={value} />}
+      </Box>
+    
       </div>
     );
   }

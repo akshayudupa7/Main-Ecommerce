@@ -1,6 +1,7 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 import { Box ,Grid,Typography,Stack} from '@mui/material'
 import Image from 'next/image'
+
 
 interface Product {
   imageUrl: string;
@@ -15,11 +16,12 @@ interface PageProps {
   item: Product;
 }
 const Page: React.FC<PageProps> = ({ item }) =>  {
+
   return (
     <div>
       <Box sx={{paddingTop:"50px",paddingBottom:"50px"}}>
     
-
+     
        <Grid container gap={4} >
          <Grid item xs={10} md={3} >
           <Box sx={{width:"100%"}}>
